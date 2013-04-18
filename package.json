@@ -1,0 +1,44 @@
+{
+  "name": "audit-shelljs",
+  "description": "Audit directory properties/content with ShellJs",
+  "version": "0.1.0",
+  "main": "index.js",
+  "keywords": [
+  ],
+  "contributors": [
+    {
+      "name": "David Smith",
+      "web": "https://github.com/codeactual/"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/codeactual/audit-shelljs/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codeactual/audit-shelljs.git"
+  },
+  "dependencies": {
+    "outer-shelljs": "~0.3.0"
+  },
+  "devDependencies": {
+    "chai": "~1.5.0",
+    "component": "~0.13.2",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-shell": "~0.2.1",
+    "mocha": "~1.9.0",
+    "sinon": "~1.6.0",
+    "sinon-chai": "~2.3.1",
+    "sinon-doublist": "~0.3.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "gitemplate": {
+    "originSha": "c0599928cc",
+    "originUrl": "/var/dev/gitemplate-node-lib/.git"
+  }
+}
