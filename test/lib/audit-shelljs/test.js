@@ -67,9 +67,9 @@ describe('AuditShelljs', function() {
     });
 
     it('should pass-through all args', function() {
-      var customStub = this.stub(auditShelljs.rules, 'custom');
-      this.as.custom('foo', 'bar', 'baz').hit();
-      customStub.should.have.been.calledWithExactly('foo', 'bar', 'baz');
+      var _Stub = this.stub(auditShelljs.rules, '_');
+      this.as._('foo', 'bar', 'baz').hit();
+      _Stub.should.have.been.calledWithExactly('foo', 'bar', 'baz');
     });
 
     it('should save results', function() {
@@ -127,9 +127,9 @@ describe('AuditShelljs', function() {
       this.stub = this.stub(this.as.shelljs, '_');
     });
 
-    describe('#custom', function() {
+    describe('#_', function() {
       it('should return shelljs pass-through result', function() {
-        this.as.custom('test', '-L', this.file).hit();
+        this.as._('test', '-L', this.file).hit();
         this.stub.should.have.been.calledWithExactly('test', '-L', this.file);
       });
     });
