@@ -9,6 +9,7 @@ chai.Assertion.includeStack = true;
 chai.use(require('sinon-chai'));
 
 var auditShelljs = require('../../..');
+var AuditShelljs = auditShelljs.AuditShelljs;
 
 require('sinon-doublist')(sinon, 'mocha');
 
@@ -16,17 +17,31 @@ describe('AuditShelljs', function() {
   'use strict';
 
   beforeEach(function() {
-    this.auditShelljs = new auditShelljs.create();
+    this.dir = '/path/to/dir';
+    this.as = new auditShelljs.create();
+    this.as.set('dir', this.dir);
     this.resOK = {code: 0};
   });
 
   describe('constructor', function() {
-    it.skip('should queue target dir check', function() {
+    it('should use cwd as default target dir', function() {
+      this.as = new auditShelljs.create();
+      this.as.get('dir').should.equal(process.cwd());
+    });
+
+    it('should queue target dir check', function() {
+      this.as.tests.length.should.equal(1);
+      this.as.tests[0].name.should.equal('hasDir');
+      this.as.tests[0].args.should.deep.equal(['']);
     });
   });
 
   describe('prototype', function() {
-    it.skip('should include generated auditors', function() {
+    it('should include generated rules', function() {
+      var self = this;
+      Object.keys(auditShelljs.rules).forEach(function(name) {
+        self.as[name].should.be.a('function');
+      });
     });
   });
 
