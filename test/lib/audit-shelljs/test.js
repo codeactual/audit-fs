@@ -61,61 +61,61 @@ describe('AuditShelljs', function() {
   describe('generated test wrapper', function() {
     it('should skip current test if a past test failed', function() {
       this.hasFileStub.withArgs(this.file).returns(false);
-      this.as.hasFile(this.file).hasDir(this.dir).hit();
+      this.as.hasFile(this.file).hasDir(this.dir).pass();
       this.hasFileStub.should.have.been.called;
       this.hasDirSpy.should.not.have.been.calledWith(this.dir);
     });
 
     it('should pass-through all args', function() {
       var _Stub = this.stub(auditShelljs.rules, '_');
-      this.as._('foo', 'bar', 'baz').hit();
+      this.as._('foo', 'bar', 'baz').pass();
       _Stub.should.have.been.calledWithExactly('foo', 'bar', 'baz');
     });
 
     it('should save results', function() {
       this.hasFileStub.withArgs(this.file).returns(this.testRes);
-      this.as.hasFile(this.file).hit();
+      this.as.hasFile(this.file).pass();
       this.as.results.length.should.equal(1);
       this.as.results[0].name.should.equal('hasFile');
       this.as.results[0].res.should.deep.equal(this.testRes);
       this.as.results[0].args.should.deep.equal([this.file]);
     });
 
-    it('should not change match status on hit', function() {
+    it('should not change match status on pass', function() {
       this.hasFileStub.withArgs(this.file).returns(true);
       this.as.match.should.equal(true);
-      this.as.hasFile(this.file).hit();
+      this.as.hasFile(this.file).pass();
       this.as.match.should.equal(true);
     });
 
     it('should correctly update match status on miss', function() {
       this.hasFileStub.withArgs(this.file).returns(false);
       this.as.match.should.equal(true);
-      this.as.hasFile(this.file).hit();
+      this.as.hasFile(this.file).pass();
       this.as.match.should.equal(false);
     });
   });
 
-  describe('#hit', function() {
+  describe('#pass', function() {
     it('should begin commands from target dir', function() {
       this.as.set('dir', this.dir);
       var stub = this.stub(this.as.shelljs, '_');
-      this.as.hit();
+      this.as.pass();
       stub.should.have.been.calledWith('cd', this.dir);
     });
 
     it('should return match result', function() {
-      this.as.hit().should.equal(true);
+      this.as.pass().should.equal(true);
 
       this.hasFileStub.withArgs(this.file).returns(false);
-      this.as.hasFile(this.file).hit().should.equal(false);
+      this.as.hasFile(this.file).pass().should.equal(false);
     });
   });
 
   describe('#last', function() {
     it('should return last test result', function() {
       this.hasFileStub.withArgs(this.file).returns(false);
-      this.as.hasDir('').hasFile(this.file).hit();
+      this.as.hasDir('').hasFile(this.file).pass();
       this.as.last().should.deep.equal({
         name: 'hasFile', args: [this.file], res: false
       });
@@ -129,7 +129,7 @@ describe('AuditShelljs', function() {
 
     describe('#_', function() {
       it('should return shelljs pass-through result', function() {
-        this.as._('test', '-L', this.file).hit();
+        this.as._('test', '-L', this.file).pass();
         this._Stub.should.have.been.calledWithExactly('test', '-L', this.file);
       });
     });
@@ -137,21 +137,21 @@ describe('AuditShelljs', function() {
     describe('#assert', function() {
       it('should receive OuterShelljs instance', function() {
         var cb = this.stub();
-        this.as.assert(cb).hit();
+        this.as.assert(cb).pass();
         cb.should.have.been.calledWithExactly(this.as.shelljs);
       });
 
       it('should return custom function pass', function() {
         var cb = this.stub();
         cb.returns(false);
-        this.as.assert(cb).hit().should.equal(false);
+        this.as.assert(cb).pass().should.equal(false);
         cb.should.have.been.called;
       });
 
       it('should return custom function fail', function() {
         var cb = this.stub();
         cb.returns(true);
-        this.as.assert(cb).hit().should.equal(true);
+        this.as.assert(cb).pass().should.equal(true);
         cb.should.have.been.called;
       });
     });
@@ -159,42 +159,42 @@ describe('AuditShelljs', function() {
     describe('#refute', function() {
       it('should receive OuterShelljs instance', function() {
         var cb = this.stub();
-        this.as.refute(cb).hit();
+        this.as.refute(cb).pass();
         cb.should.have.been.calledWithExactly(this.as.shelljs);
       });
 
       it('should return custom function pass', function() {
         var cb = this.stub();
         cb.returns(true);
-        this.as.refute(cb).hit().should.equal(false);
+        this.as.refute(cb).pass().should.equal(false);
         cb.should.have.been.called;
       });
 
       it('should return custom function fail', function() {
         var cb = this.stub();
         cb.returns(false);
-        this.as.refute(cb).hit().should.equal(true);
+        this.as.refute(cb).pass().should.equal(true);
         cb.should.have.been.called;
       });
     });
 
     describe('#grep', function() {
       it('should return shelljs pass-through result', function() {
-        this.as.grep('textRegex', 'fileRegex').hit();
+        this.as.grep('textRegex', 'fileRegex').pass();
         this._Stub.should.have.been.calledWithExactly('grep', 'textRegex', 'fileRegex');
       });
     });
 
     describe('#grepv', function() {
       it('should return shelljs pass-through result', function() {
-        this.as.grepv('textRegex', 'fileRegex').hit();
+        this.as.grepv('textRegex', 'fileRegex').pass();
         this._Stub.should.have.been.calledWithExactly('grep', '-v', 'textRegex', 'fileRegex');
       });
     });
 
     describe('#hasDir', function() {
       it('should return shelljs pass-through result', function() {
-        this.as.hasDir('').hit();
+        this.as.hasDir('').pass();
         this._Stub.should.have.been.calledWithExactly('test', '-d', process.cwd() + '/');
       });
     });
@@ -202,7 +202,7 @@ describe('AuditShelljs', function() {
     describe('#hasFile', function() {
       it('should return shelljs pass-through result', function() {
         this.hasFileStub.restore();
-        this.as.hasFile(this.file).hit();
+        this.as.hasFile(this.file).pass();
         this._Stub.should.have.been.calledWithExactly(
           'test', '-f', process.cwd() + '/' + this.file
         );
