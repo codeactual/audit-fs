@@ -112,11 +112,11 @@ describe('AuditShelljs', function() {
     });
   });
 
-  describe('#failReason', function() {
+  describe('#last', function() {
     it('should return last test result', function() {
       this.hasFileStub.withArgs(this.file).returns(false);
       this.as.hasDir('').hasFile(this.file).hit();
-      this.as.failReason().should.deep.equal({
+      this.as.last().should.deep.equal({
         name: 'hasFile', args: [this.file], res: false
       });
     });
