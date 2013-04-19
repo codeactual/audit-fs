@@ -1,3 +1,4 @@
+/*jshint expr:true*/
 var sinon = require('sinon');
 var chai = require('chai');
 var fs = require('fs');
@@ -17,22 +18,22 @@ describe('AuditShelljs', function() {
   'use strict';
 
   beforeEach(function() {
-    this.dir = '/path/to/dir';
+    this.ruleArgs = ['rule test configs'];
+    this.ruleFn = {iAmA: 'rule function'};
+    this.ruleName = 'hasSomething';
+    this.testRes = {iAmA: 'test result'};
+    this.dir = 'dir';
+    this.file = 'file.ext';
     this.as = new auditShelljs.create();
-    this.as.set('dir', this.dir);
     this.resOK = {code: 0};
+    this.hasDirSpy = this.spy(auditShelljs.rules, 'hasDir');
+    this.hasFileStub = this.stub(auditShelljs.rules, 'hasFile');
   });
 
   describe('constructor', function() {
     it('should use cwd as default target dir', function() {
       this.as = new auditShelljs.create();
       this.as.get('dir').should.equal(process.cwd());
-    });
-
-    it('should queue target dir check', function() {
-      this.as.tests.length.should.equal(1);
-      this.as.tests[0].name.should.equal('hasDir');
-      this.as.tests[0].args.should.deep.equal(['']);
     });
   });
 
@@ -45,68 +46,122 @@ describe('AuditShelljs', function() {
     });
   });
 
-  describe('.createAuditor', function() {
-    it.skip('should create a function that queues a test wrapper', function() {
+  describe('.createQueuePush', function() {
+    it('should create a function that queues configured rule test', function() {
+      var pushTestSpy = this.spy();
+      var context = {tests: {push: pushTestSpy}};
+      var created = AuditShelljs.createQueuePush(this.ruleName, this.ruleFn);
+      created.apply(context, this.ruleArgs).should.deep.equal(context);
+      pushTestSpy.should.have.been.calledWithExactly({
+        name: this.ruleName, cb: this.ruleFn, args: this.ruleArgs
+      });
     });
   });
 
   describe('generated test wrapper', function() {
-    it.skip('should skip current test if a past test failed', function() {
+    it('should skip current test if a past test failed', function() {
+      this.hasFileStub.withArgs(this.file).returns(false);
+      this.as.hasFile(this.file).hasDir(this.dir).hit();
+      this.hasFileStub.should.have.been.called;
+      this.hasDirSpy.should.not.have.been.calledWith(this.dir);
     });
 
-    it.skip('should pass-through all args', function() {
+    it('should pass-through all args', function() {
+      var customStub = this.stub(auditShelljs.rules, 'custom');
+      this.as.custom('foo', 'bar', 'baz').hit();
+      customStub.should.have.been.calledWithExactly('foo', 'bar', 'baz');
     });
 
-    it.skip('should save results', function() {
+    it('should save results', function() {
+      this.hasFileStub.withArgs(this.file).returns(this.testRes);
+      this.as.hasFile(this.file).hit();
+      this.as.results.length.should.equal(1);
+      this.as.results[0].name.should.equal('hasFile');
+      this.as.results[0].res.should.deep.equal(this.testRes);
+      this.as.results[0].args.should.deep.equal([this.file]);
     });
 
-    it.skip('should correctly update match status on hit', function() {
+    it('should not change match status on hit', function() {
+      this.hasFileStub.withArgs(this.file).returns(true);
+      this.as.match.should.equal(true);
+      this.as.hasFile(this.file).hit();
+      this.as.match.should.equal(true);
     });
 
-    it.skip('should correctly update match status on miss', function() {
+    it('should correctly update match status on miss', function() {
+      this.hasFileStub.withArgs(this.file).returns(false);
+      this.as.match.should.equal(true);
+      this.as.hasFile(this.file).hit();
+      this.as.match.should.equal(false);
     });
   });
 
-
   describe('#hit', function() {
-    it.skip('should begin commands from target dir', function() {
+    it('should begin commands from target dir', function() {
+      this.as.set('dir', this.dir);
+      var stub = this.stub(this.as.shelljs, '_');
+      this.as.hit();
+      stub.should.have.been.calledWith('cd', this.dir);
     });
 
-    it.skip('should run queued tests', function() {
-    });
+    it('should return match result', function() {
+      this.as.hit().should.equal(true);
 
-    it.skip('should return match result', function() {
+      this.hasFileStub.withArgs(this.file).returns(false);
+      this.as.hasFile(this.file).hit().should.equal(false);
     });
   });
 
   describe('#failReason', function() {
-    it.skip('should return last test result', function() {
+    it('should return last test result', function() {
+      this.hasFileStub.withArgs(this.file).returns(false);
+      this.as.hasDir('').hasFile(this.file).hit();
+      this.as.failReason().should.deep.equal({
+        name: 'hasFile', args: [this.file], res: false
+      });
     });
   });
 
   describe('test', function() {
+    beforeEach(function() {
+      this.stub = this.stub(this.as.shelljs, '_');
+    });
+
     describe('#custom', function() {
-      it.skip('should return shelljs pass-through result', function() {
+      it('should return shelljs pass-through result', function() {
+        this.as.custom('test', '-L', this.file).hit();
+        this.stub.should.have.been.calledWithExactly('test', '-L', this.file);
       });
     });
 
     describe('#grep', function() {
-      it.skip('should return shelljs pass-through result', function() {
+      it('should return shelljs pass-through result', function() {
+        this.as.grep('textRegex', 'fileRegex').hit();
+        this.stub.should.have.been.calledWithExactly('grep', 'textRegex', 'fileRegex');
       });
     });
 
     describe('#grepv', function() {
-      it.skip('should return shelljs pass-through result', function() {
+      it('should return shelljs pass-through result', function() {
+        this.as.grepv('textRegex', 'fileRegex').hit();
+        this.stub.should.have.been.calledWithExactly('grep', '-v', 'textRegex', 'fileRegex');
       });
     });
 
     describe('#hasDir', function() {
-      it.skip('should return shelljs pass-through result', function() {
+      it('should return shelljs pass-through result', function() {
+        this.as.hasDir('').hit();
+        this.stub.should.have.been.calledWithExactly('test', '-d', process.cwd() + '/');
       });
     });
 
     describe('#hasFile', function() {
-      it.skip('should return shelljs pass-through result', function() {
+      it('should return shelljs pass-through result', function() {
+        this.hasFileStub.restore();
+        this.as.hasFile(this.file).hit();
+        this.stub.should.have.been.calledWithExactly(
+          'test', '-f', process.cwd() + '/' + this.file
+        );
       });
     });
   });
