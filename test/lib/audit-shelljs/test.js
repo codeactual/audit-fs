@@ -124,34 +124,78 @@ describe('AuditShelljs', function() {
 
   describe('test', function() {
     beforeEach(function() {
-      this.stub = this.stub(this.as.shelljs, '_');
+      this._Stub = this.stub(this.as.shelljs, '_');
     });
 
     describe('#_', function() {
       it('should return shelljs pass-through result', function() {
         this.as._('test', '-L', this.file).hit();
-        this.stub.should.have.been.calledWithExactly('test', '-L', this.file);
+        this._Stub.should.have.been.calledWithExactly('test', '-L', this.file);
+      });
+    });
+
+    describe('#assert', function() {
+      it('should receive OuterShelljs instance', function() {
+        var cb = this.stub();
+        this.as.assert(cb).hit();
+        cb.should.have.been.calledWithExactly(this.as.shelljs);
+      });
+
+      it('should return custom function pass', function() {
+        var cb = this.stub();
+        cb.returns(false);
+        this.as.assert(cb).hit().should.equal(false);
+        cb.should.have.been.called;
+      });
+
+      it('should return custom function fail', function() {
+        var cb = this.stub();
+        cb.returns(true);
+        this.as.assert(cb).hit().should.equal(true);
+        cb.should.have.been.called;
+      });
+    });
+
+    describe('#refute', function() {
+      it('should receive OuterShelljs instance', function() {
+        var cb = this.stub();
+        this.as.refute(cb).hit();
+        cb.should.have.been.calledWithExactly(this.as.shelljs);
+      });
+
+      it('should return custom function pass', function() {
+        var cb = this.stub();
+        cb.returns(true);
+        this.as.refute(cb).hit().should.equal(false);
+        cb.should.have.been.called;
+      });
+
+      it('should return custom function fail', function() {
+        var cb = this.stub();
+        cb.returns(false);
+        this.as.refute(cb).hit().should.equal(true);
+        cb.should.have.been.called;
       });
     });
 
     describe('#grep', function() {
       it('should return shelljs pass-through result', function() {
         this.as.grep('textRegex', 'fileRegex').hit();
-        this.stub.should.have.been.calledWithExactly('grep', 'textRegex', 'fileRegex');
+        this._Stub.should.have.been.calledWithExactly('grep', 'textRegex', 'fileRegex');
       });
     });
 
     describe('#grepv', function() {
       it('should return shelljs pass-through result', function() {
         this.as.grepv('textRegex', 'fileRegex').hit();
-        this.stub.should.have.been.calledWithExactly('grep', '-v', 'textRegex', 'fileRegex');
+        this._Stub.should.have.been.calledWithExactly('grep', '-v', 'textRegex', 'fileRegex');
       });
     });
 
     describe('#hasDir', function() {
       it('should return shelljs pass-through result', function() {
         this.as.hasDir('').hit();
-        this.stub.should.have.been.calledWithExactly('test', '-d', process.cwd() + '/');
+        this._Stub.should.have.been.calledWithExactly('test', '-d', process.cwd() + '/');
       });
     });
 
@@ -159,7 +203,7 @@ describe('AuditShelljs', function() {
       it('should return shelljs pass-through result', function() {
         this.hasFileStub.restore();
         this.as.hasFile(this.file).hit();
-        this.stub.should.have.been.calledWithExactly(
+        this._Stub.should.have.been.calledWithExactly(
           'test', '-f', process.cwd() + '/' + this.file
         );
       });
