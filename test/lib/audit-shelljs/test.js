@@ -134,6 +134,14 @@ describe('AuditShelljs', function() {
       });
     });
 
+    describe('#__', function() {
+      it('should return outer-shelljs pass-through result', function() {
+        var stub = this.stub(this.as.shelljs, 'grep');
+        this.as.__('grep', 'needle', '/path/to/haystack').pass();
+        stub.should.have.been.calledWithExactly('needle', '/path/to/haystack');
+      });
+    });
+
     describe('#assert', function() {
       it('should receive OuterShelljs instance', function() {
         var cb = this.stub();
