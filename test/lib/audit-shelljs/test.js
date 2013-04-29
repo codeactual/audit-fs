@@ -186,17 +186,54 @@ describe('AuditShelljs', function() {
       });
     });
 
-    describe('#grep', function() {
-      it('should return shelljs pass-through result', function() {
-        this.as.grep('textRegex', 'fileRegex').pass();
-        this._Stub.should.have.been.calledWithExactly('grep', 'textRegex', 'fileRegex');
+    describe('grep', function() {
+      beforeEach(function() {
+        this.textPat = 'needle';
+        this.filePat = '/path/to/haystack';
+        this.matches = ['foo', 'bar'];
+        this.res = {code: 0, output: this.matches.join('\n')};
+        this._Stub.returns(this.res);
       });
-    });
 
-    describe('#grepv', function() {
-      it('should return shelljs pass-through result', function() {
-        this.as.grepv('textRegex', 'fileRegex').pass();
-        this._Stub.should.have.been.calledWithExactly('grep', '-v', 'textRegex', 'fileRegex');
+      describe('#grep variant', function() {
+        it('should return hit result', function() {
+          this.as.grep(this.textPat, this.filePat).pass().should.equal(true);
+          this._Stub.should.have.been.calledWith(
+            'exec', ['grep', '-l', this.textPat, this.filePat].join(' ')
+          );
+        });
+
+        it('should return miss result', function() {
+          this.res.code = 1;
+          this.as.grep(this.textPat, this.filePat).pass().should.equal(false);
+          this._Stub.should.have.been.calledWith(
+            'exec', ['grep', '-l', this.textPat, this.filePat].join(' ')
+          );
+        });
+      });
+
+      describe('#grepv variant', function() {
+        it('should return hit result', function() {
+          this.as.grepv(this.textPat, this.filePat).pass().should.equal(true);
+          this._Stub.should.have.been.calledWith(
+            'exec', ['grep', '-vl', this.textPat, this.filePat].join(' ')
+          );
+        });
+
+        it('should return miss result', function() {
+          this.res.code = 1;
+          this.as.grep(this.textPat, this.filePat).pass().should.equal(false);
+          this._Stub.should.have.been.calledWith(
+            'exec', ['grep', '-l', this.textPat, this.filePat].join(' ')
+          );
+        });
+
+        it('should merge flags', function() {
+          this.as.grepv('-r', this.textPat, this.filePat).pass().should.equal(true);
+          this._Stub.should.have.been.calledWith(
+            'exec', ['grep', '-rvl', this.textPat, this.filePat].join(' ')
+          );
+        });
       });
     });
 
