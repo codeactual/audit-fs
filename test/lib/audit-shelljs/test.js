@@ -145,21 +145,21 @@ describe('AuditShelljs', function() {
     describe('#assert', function() {
       it('should receive OuterShelljs instance', function() {
         var cb = this.stub();
-        this.as.assert(cb).pass();
+        this.as.assert('some expectation', cb).pass();
         cb.should.have.been.calledWithExactly(this.as.shelljs);
       });
 
       it('should return custom function pass', function() {
         var cb = this.stub();
         cb.returns(false);
-        this.as.assert(cb).pass().should.equal(false);
+        this.as.assert('some expectation', cb).pass().should.equal(false);
         cb.should.have.been.called;
       });
 
       it('should return custom function fail', function() {
         var cb = this.stub();
         cb.returns(true);
-        this.as.assert(cb).pass().should.equal(true);
+        this.as.assert('some expectation', cb).pass().should.equal(true);
         cb.should.have.been.called;
       });
     });
@@ -167,21 +167,21 @@ describe('AuditShelljs', function() {
     describe('#refute', function() {
       it('should receive OuterShelljs instance', function() {
         var cb = this.stub();
-        this.as.refute(cb).pass();
+        this.as.refute('some expectation', cb).pass();
         cb.should.have.been.calledWithExactly(this.as.shelljs);
       });
 
       it('should return custom function pass', function() {
         var cb = this.stub();
         cb.returns(true);
-        this.as.refute(cb).pass().should.equal(false);
+        this.as.refute('some expectation', cb).pass().should.equal(false);
         cb.should.have.been.called;
       });
 
       it('should return custom function fail', function() {
         var cb = this.stub();
         cb.returns(false);
-        this.as.refute(cb).pass().should.equal(true);
+        this.as.refute('some expectation', cb).pass().should.equal(true);
         cb.should.have.been.called;
       });
     });
