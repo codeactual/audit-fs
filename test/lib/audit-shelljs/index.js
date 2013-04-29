@@ -191,7 +191,6 @@ describe('AuditShelljs', function() {
         this.textPat = 'needle';
         this.textPatFinal = '"' + this.textPat + '"';
         this.filePat = '/path/to/haystack';
-        this.filePatFinal = '"' + this.filePat + '"';
         this.matches = ['foo', 'bar'];
         this.res = {code: 0, output: this.matches.join('\n')};
         this._Stub.returns(this.res);
@@ -201,7 +200,7 @@ describe('AuditShelljs', function() {
         it('should pass-through args to #exec', function() {
           this.as.grep(this.textPat, this.filePat).pass();
           this._Stub.should.have.been.calledWith(
-            'exec', ['grep', '-l', this.textPatFinal, this.filePatFinal].join(' ')
+            'exec', ['grep', '-l', this.textPatFinal, this.filePat].join(' ')
           );
         });
 
@@ -225,7 +224,7 @@ describe('AuditShelljs', function() {
         it('should pass-through args to #exec', function() {
           this.as.grepv(this.textPat, this.filePat).pass();
           this._Stub.should.have.been.calledWith(
-            'exec', ['grep', '-vl', this.textPatFinal, this.filePatFinal].join(' ')
+            'exec', ['grep', '-vl', this.textPatFinal, this.filePat].join(' ')
           );
         });
 
@@ -247,7 +246,7 @@ describe('AuditShelljs', function() {
         it('should merge flags', function() {
           this.as.grepv('-r', this.textPat, this.filePat).pass().should.equal(true);
           this._Stub.should.have.been.calledWith(
-            'exec', ['grep', '-rvl', this.textPatFinal, this.filePatFinal].join(' ')
+            'exec', ['grep', '-rvl', this.textPatFinal, this.filePat].join(' ')
           );
         });
       });
