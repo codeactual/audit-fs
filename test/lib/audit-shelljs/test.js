@@ -196,36 +196,50 @@ describe('AuditShelljs', function() {
       });
 
       describe('#grep variant', function() {
-        it('should return hit result', function() {
-          this.as.grep(this.textPat, this.filePat).pass().should.equal(true);
+        it('should pass-through args to #exec', function() {
+          this.as.grep(this.textPat, this.filePat).pass();
           this._Stub.should.have.been.calledWith(
             'exec', ['grep', '-l', this.textPat, this.filePat].join(' ')
           );
         });
 
-        it('should return miss result', function() {
+        it('should return true on match', function() {
+          this.as.grep(this.textPat, this.filePat).pass().should.equal(true);
+        });
+
+        it('should return false on match', function() {
           this.res.code = 1;
+          this.res.output = '';
           this.as.grep(this.textPat, this.filePat).pass().should.equal(false);
-          this._Stub.should.have.been.calledWith(
-            'exec', ['grep', '-l', this.textPat, this.filePat].join(' ')
-          );
+        });
+
+        it('should return false on error', function() {
+          this.res.code = 2;
+          this.as.grep(this.textPat, this.filePat).pass().should.equal(false);
         });
       });
 
       describe('#grepv variant', function() {
-        it('should return hit result', function() {
-          this.as.grepv(this.textPat, this.filePat).pass().should.equal(true);
+        it('should pass-through args to #exec', function() {
+          this.as.grepv(this.textPat, this.filePat).pass();
           this._Stub.should.have.been.calledWith(
             'exec', ['grep', '-vl', this.textPat, this.filePat].join(' ')
           );
         });
 
-        it('should return miss result', function() {
+        it('should return true on match', function() {
+          this.as.grepv(this.textPat, this.filePat).pass().should.equal(true);
+        });
+
+        it('should return false on no match', function() {
           this.res.code = 1;
+          this.res.output = '';
           this.as.grep(this.textPat, this.filePat).pass().should.equal(false);
-          this._Stub.should.have.been.calledWith(
-            'exec', ['grep', '-l', this.textPat, this.filePat].join(' ')
-          );
+        });
+
+        it('should return false on error', function() {
+          this.res.code = 2;
+          this.as.grep(this.textPat, this.filePat).pass().should.equal(false);
         });
 
         it('should merge flags', function() {
