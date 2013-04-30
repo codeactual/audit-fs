@@ -2,6 +2,7 @@ Audit directory properties/content with ShellJS
 
 _Source: [lib/audit-shelljs/index.js](../lib/audit-shelljs/index.js)_
 
+- [exports.AuditShelljs](#exportsauditshelljs)
 - [exports.create](#exportscreate)
 - [exports.extendAuditShelljs](#exportsextendauditshelljsext)
 - [exports.extendRules](#exportsextendrulesext)
@@ -16,6 +17,10 @@ _Source: [lib/audit-shelljs/index.js](../lib/audit-shelljs/index.js)_
 - [rules.grepv](#rulesgrepv)
 - [rules.hasDir](#ruleshasdirdir)
 - [rules.hasFile](#ruleshasfilefile)
+
+# exports.AuditShelljs()
+
+[AuditShelljs](#auditshelljs) constructor.
 
 # exports.create()
 
