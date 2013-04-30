@@ -165,24 +165,49 @@ describe('AuditShelljs', function() {
     });
 
     describe('#refute', function() {
-      it('should receive OuterShelljs instance', function() {
-        var cb = this.stub();
-        this.as.refute('some expectation', cb).pass();
-        cb.should.have.been.calledWithExactly(this.as.shelljs);
+      describe('function', function() {
+        it('should receive OuterShelljs instance', function() {
+          var cb = this.stub();
+          this.as.refute('some expectation', cb).pass();
+          cb.should.have.been.calledWithExactly(this.as.shelljs);
+        });
+
+        it('should return custom function pass', function() {
+          var cb = this.stub();
+          cb.returns(true);
+          this.as.refute('some expectation', cb).pass().should.equal(false);
+          cb.should.have.been.called;
+        });
+
+        it('should return custom function fail', function() {
+          var cb = this.stub();
+          cb.returns(false);
+          this.as.refute('some expectation', cb).pass().should.equal(true);
+          cb.should.have.been.called;
+        });
+
+        it('should include generated rules', function() {
+          var self = this;
+          Object.keys(auditShelljs.rules).forEach(function(name) {
+            if (name === 'assert' || name === 'refute') {
+              should.not.exist(self.as.refute[name]);
+            } else {
+              self.as.refute[name].should.be.a('function');
+            }
+          });
+        });
       });
 
-      it('should return custom function pass', function() {
-        var cb = this.stub();
-        cb.returns(true);
-        this.as.refute('some expectation', cb).pass().should.equal(false);
-        cb.should.have.been.called;
-      });
-
-      it('should return custom function fail', function() {
-        var cb = this.stub();
-        cb.returns(false);
-        this.as.refute('some expectation', cb).pass().should.equal(true);
-        cb.should.have.been.called;
+      describe('.hasFile', function() {
+        it('should use negated result', function() {
+          this.hasFileStub.restore();
+          var exists = true;
+          this._Stub.returns(exists);
+          this.as.refute.hasFile(this.file).pass().should.equal(!exists);
+          this._Stub.should.have.been.calledWithExactly(
+            'test', '-f', process.cwd() + '/' + this.file
+          );
+        });
       });
     });
 
@@ -254,7 +279,8 @@ describe('AuditShelljs', function() {
 
     describe('#hasDir', function() {
       it('should return shelljs pass-through result', function() {
-        this.as.hasDir('').pass();
+        this._Stub.returns(true);
+        this.as.hasDir('').pass().should.equal(true);
         this._Stub.should.have.been.calledWithExactly('test', '-d', process.cwd() + '/');
       });
     });
@@ -262,7 +288,8 @@ describe('AuditShelljs', function() {
     describe('#hasFile', function() {
       it('should return shelljs pass-through result', function() {
         this.hasFileStub.restore();
-        this.as.hasFile(this.file).pass();
+        this._Stub.returns(true);
+        this.as.hasFile(this.file).pass().should.equal(true);
         this._Stub.should.have.been.calledWithExactly(
           'test', '-f', process.cwd() + '/' + this.file
         );
