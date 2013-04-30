@@ -61,12 +61,16 @@ module.exports = function(grunt) {
       test_lib: {
         options: mochaShelljsOpt,
         command: 'mocha --colors --recursive --reporter spec test/lib'
+      },
+      dox_lib: {
+        command: 'gitemplate-dox --input lib/audit-shelljs/index.js --output docs/AuditShelljs.md'
       }
     }
   });
 
   grunt.registerTask('default', ['jshint']);
+  grunt.registerTask('dox', ['shell:dox_lib']);
   grunt.registerTask('build', ['default', 'shell:build']);
-  grunt.registerTask('dist', ['default', 'shell:dist', 'uglify:dist', 'shell:shrinkwrap']);
+  grunt.registerTask('dist', ['default', 'shell:dist', 'uglify:dist', 'shell:shrinkwrap', 'dox']);
   grunt.registerTask('test', ['build', 'shell:test_lib']);
 };

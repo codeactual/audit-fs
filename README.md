@@ -15,7 +15,7 @@ var audit = new auditShelljs.create();
 audit
   .set('dir', '/path/to/dir'); // Target directory
   .hasFile('README.md')
-  .grepv('console.log', 'lib/*.js');
+  .refute.grep('console.log', 'lib/**/*.js');
 
 if (audit.pass()) {
   // Expectations met
@@ -30,80 +30,9 @@ if (audit.pass()) {
 
     npm install audit-shelljs
 
-## Main API
+## API Documentation
 
-### create()
-
-> Return a new AuditShelljs() instance.
-
-### extendAuditShelljs(ext)
-
-> Extend AuditShelljs.prototype.
-
-### extendRules(ext)
-
-> Extend rule (ex. 'hasFile') method set.
-
-### last()
-
-> Return the result of the last executed test.
-
-Object properties:
-
-* `{string} name` Ex. 'hasFile'
-* `{array} args` Ex. arguments passed to hasFile()
-* `{mixed} res` Ex. ShellJS test() boolean result
-
-### pass()
-
-> Run queued tests and return the result. Stop at first failure.
-
-## Configuration API
-
-### .set(key, val) / .get(key)
-
-* `{string} dir` Audit's target directory. No trailing slash.
- * default: `process.cwd()`
-
-## Rules
-
-Expectations can be chained.
-
-### ._(method, args*)
-
-> Truthy-test the result of any ShellJS method.
-
-* Test function receives one argument: [OuterShelljs](https://github.com/codeactual/outer-shelljs) instance.
-
-### .grep(text, regex)
-
-> `shelljs.grep()` wrapper.
-
-### .grepv(text, regex)
-
-> `shelljs.grep('v', ...)` wrapper.
-
-### .hasFile(file)
-
-> `shelljs.test('-f', ...)` wrapper.
-
-* `file` must be relative to the target directory. No leading dot or slash.
-
-### .hasDir(dir)
-
-> `shelljs.test('-d', ...)` wrapper.
-
-* `file` must be relative to the target directory. No leading dot or slash.
-
-### .assert(cb)
-
-> Truthy-test the result of a custom test function.
-
-* Test function receives one argument: [OuterShelljs](https://github.com/codeactual/outer-shelljs) instance.
-
-### .refute(cb)
-
-> Falsey-test the result of a custom test function.
+[AuditShelljs](docs/AuditShelljs.md)
 
 ## License
 
