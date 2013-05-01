@@ -129,6 +129,9 @@ var dox = require('audit-shelljs').create();
 - `{string} label` Ex. 'contain debug logging'
 - `{function} cb`
 
+  - Receives one argument: OuterShelljs instance.
+  - Return value is used as the test result.
+
 **Return:**
 
 `{boolean}`
@@ -141,6 +144,9 @@ var dox = require('audit-shelljs').create();
 
 - `{string} label` Ex. 'contain debug logging'
 - `{function} cb`
+
+  - Receives one argument: OuterShelljs instance.
+  - Return value is used as the test result.
 
 **Return:**
 
@@ -158,7 +164,7 @@ Thin wrapper around `OuterShelljs#grep`.
 
 **See:**
 
-- [OuterShelljs#grep](https://github.com/codeactual/outer-shelljs/docs/OuterShelljs.md)
+- [OuterShelljs#grep](https://github.com/codeactual/outer-shelljs/blob/master/docs/OuterShelljs.md)
 
 # rules.grepv()
 
@@ -172,7 +178,7 @@ Thin wrapper around `OuterShelljs#grep`.
 
 **See:**
 
-- [OuterShelljs#grep](https://github.com/codeactual/outer-shelljs/docs/OuterShelljs.md)
+- [OuterShelljs#grep](https://github.com/codeactual/outer-shelljs/blob/master/docs/OuterShelljs.md)
 
 # rules.hasDir(dir)
 
