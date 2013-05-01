@@ -20,11 +20,11 @@ _Source: [lib/audit-shelljs/index.js](../lib/audit-shelljs/index.js)_
 
 # exports.AuditShelljs()
 
-[AuditShelljs](#auditshelljs) constructor.
+> [AuditShelljs](#auditshelljs) constructor.
 
 # exports.create()
 
-Create a new AuditShelljs.
+> Create a new AuditShelljs.
 
 **Return:**
 
@@ -32,7 +32,7 @@ Create a new AuditShelljs.
 
 # exports.extendAuditShelljs(ext)
 
-Extend AuditShelljs.prototype.
+> Extend AuditShelljs.prototype.
 
 **Parameters:**
 
@@ -40,11 +40,11 @@ Extend AuditShelljs.prototype.
 
 **Return:**
 
-`{object}`: Merge result.
+`{object}` Merge result.
 
 # exports.extendRules(ext)
 
-Extend audit rule set.
+> Extend audit rule set.
 
 **Parameters:**
 
@@ -52,11 +52,11 @@ Extend audit rule set.
 
 **Return:**
 
-`{object}`: Merge result.
+`{object}` Merge result.
 
 # AuditShelljs()
 
-AuditShelljs constructor.
+> AuditShelljs constructor.
 
 **Usage:**
 
@@ -86,23 +86,23 @@ var dox = require('audit-shelljs').create();
 
 # AuditShelljs.prototype.last()
 
-Return the result of the last executed test.
+> Return the result of the last executed test.
 
 **Return:**
 
-`{mixed}`: Result object, or undefined if none were executed.
+`{mixed}` Result object, or undefined if none were executed.
 
 # AuditShelljs.prototype.pass()
 
-Run queued tests and return the result. Stop at first failure.
+> Run queued tests and return the result. Stop at first failure.
 
 **Return:**
 
-`{boolean}`: True if all tests passed.
+`{boolean}` True if all tests passed.
 
 # rules._()
 
-Truthy-test a custom ShellJS invocation.
+> Truthy-test a custom ShellJS invocation.
 
 **Return:**
 
@@ -110,11 +110,11 @@ Truthy-test a custom ShellJS invocation.
 
 # rules.__(method)
 
-Truthy-test a custom OuterShelljs invocation.
+> Truthy-test a custom OuterShelljs invocation.
 
 **Parameters:**
 
-- `{string} method`: Ex. 'findByRegex', 'grep'
+- `{string} method` Ex. 'findByRegex', 'grep'
 
 **Return:**
 
@@ -122,11 +122,11 @@ Truthy-test a custom OuterShelljs invocation.
 
 # rules.assert(label, cb)
 
-Truthy-test a custom function invocation.
+> Truthy-test a custom function invocation.
 
 **Parameters:**
 
-- `{string} label`: Ex. 'contain debug logging'
+- `{string} label` Ex. 'contain debug logging'
 - `{function} cb`
 
 **Return:**
@@ -135,11 +135,11 @@ Truthy-test a custom function invocation.
 
 # rules.refute(label, cb)
 
-Falsey-test a custom function invocation.
+> Falsey-test a custom function invocation.
 
 **Parameters:**
 
-- `{string} label`: Ex. 'contain debug logging'
+- `{string} label` Ex. 'contain debug logging'
 - `{function} cb`
 
 **Return:**
@@ -148,7 +148,7 @@ Falsey-test a custom function invocation.
 
 # rules.grep()
 
-Verify that a file has a line with the given string.
+> Verify that a file has a line with the given string.
 
 Thin wrapper around `OuterShelljs#grep`.
 
@@ -162,7 +162,7 @@ Thin wrapper around `OuterShelljs#grep`.
 
 # rules.grepv()
 
-Verify that a file has a line with the given string.
+> Verify that a file has a line with the given string.
 
 Thin wrapper around `OuterShelljs#grep`.
 
@@ -176,7 +176,7 @@ Thin wrapper around `OuterShelljs#grep`.
 
 # rules.hasDir(dir)
 
-Verify that a sub-dir exists.
+> Verify that a sub-dir exists.
 
 **Parameters:**
 
@@ -188,7 +188,7 @@ Verify that a sub-dir exists.
 
 # rules.hasFile(file)
 
-Verify that a descendant file exists.
+> Verify that a descendant file exists.
 
 **Parameters:**
 
