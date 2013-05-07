@@ -9,8 +9,8 @@ _Source: [lib/audit-shelljs/index.js](../lib/audit-shelljs/index.js)_
 - [AuditShelljs](#auditshelljs)
 - [AuditShelljs.prototype.last](#auditshelljsprototypelast)
 - [AuditShelljs.prototype.pass](#auditshelljsprototypepass)
-- [rules._](#rules)
-- [rules.__](#rulesmethod)
+- [rules._](#rules_)
+- [rules.__](#rules__method)
 - [rules.assert](#rulesassertlabel-cb)
 - [rules.refute](#rulesrefutelabel-cb)
 - [rules.grep](#rulesgrep)
@@ -24,7 +24,7 @@ _Source: [lib/audit-shelljs/index.js](../lib/audit-shelljs/index.js)_
 
 # exports.create()
 
-> Create a new AuditShelljs.
+> Create a new [AuditShelljs](#auditshelljs).
 
 **Return:**
 
@@ -32,7 +32,7 @@ _Source: [lib/audit-shelljs/index.js](../lib/audit-shelljs/index.js)_
 
 # exports.extendAuditShelljs(ext)
 
-> Extend AuditShelljs.prototype.
+> Extend [AuditShelljs](#auditshelljs).prototype.
 
 **Parameters:**
 
@@ -164,7 +164,7 @@ Thin wrapper around `OuterShelljs#grep`.
 
 **See:**
 
-- [OuterShelljs#grep](https://github.com/codeactual/outer-shelljs/blob/master/docs/OuterShelljs.md)
+- [OuterShelljs](https://github.com/codeactual/outer-shelljs/blob/master/docs/OuterShelljs.md)
 
 # rules.grepv()
 
@@ -178,7 +178,7 @@ Thin wrapper around `OuterShelljs#grep`.
 
 **See:**
 
-- [OuterShelljs#grep](https://github.com/codeactual/outer-shelljs/blob/master/docs/OuterShelljs.md)
+- [OuterShelljs](https://github.com/codeactual/outer-shelljs/blob/master/docs/OuterShelljs.md)
 
 # rules.hasDir(dir)
 
