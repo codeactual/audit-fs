@@ -1,3 +1,3 @@
 # 0.1.0
 
-* [initial features]
+* Initial API: `hasFile()`, `hasDir()`, `grep()`, `grep()`, `assert()`, `refute,()`, `_()` ShellJS proxy, `__()` OuterShelljs proxy, `last()`
