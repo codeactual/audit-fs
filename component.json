@@ -3,7 +3,12 @@
   "repo": "codeactual/audit-shelljs",
   "description": "Audit directory properties/content with ShellJS",
   "version": "0.1.0",
-  "keywords": [],
+  "keywords": [
+    "shelljs",
+    "outer-shelljs",
+    "audit",
+    "test"
+  ],
   "dependencies": {
     "visionmedia/configurable.js": "f87ca5f",
     "codeactual/extend": "0.1.0"
