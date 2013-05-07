@@ -2,7 +2,7 @@
   "name": "audit-shelljs",
   "repo": "codeactual/audit-shelljs",
   "description": "Audit directory properties/content with ShellJS",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "keywords": [
     "shelljs",
     "outer-shelljs",
