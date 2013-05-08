@@ -24,7 +24,7 @@
     "url": "https://github.com/codeactual/audit-shelljs.git"
   },
   "dependencies": {
-    "outer-shelljs": "~0.3.0"
+    "outer-shelljs": "~0.3.3"
   },
   "devDependencies": {
     "chai": "~1.5.0",
