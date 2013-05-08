@@ -60,7 +60,7 @@ module.exports = function(grunt) {
         command: 'mocha --colors --recursive --reporter spec test/lib'
       },
       dox_lib: {
-        command: 'gitemplate-dox --input lib/audit-shelljs/index.js --output docs/AuditShelljs.md'
+        command: 'apidox --input lib/audit-shelljs/index.js --output docs/AuditShelljs.md'
       }
     }
   });
