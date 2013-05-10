@@ -128,7 +128,6 @@ var dox = require('audit-shelljs').create();
 
 - `{string} label` Ex. 'contain debug logging'
 - `{function} cb`
-
   - Receives one argument: OuterShelljs instance.
   - Return value is used as the test result.
 
@@ -144,7 +143,6 @@ var dox = require('audit-shelljs').create();
 
 - `{string} label` Ex. 'contain debug logging'
 - `{function} cb`
-
   - Receives one argument: OuterShelljs instance.
   - Return value is used as the test result.
 
