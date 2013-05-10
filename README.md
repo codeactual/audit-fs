@@ -40,13 +40,13 @@ audit.refute._('test', '-L', 'mySymLink');
 [assert()](docs/AuditShelljs.md) and [refute()](docs/AuditShelljs.md) receive an [OuterShelljs](https://github.com/codeactual/outer-shelljs/blob/master/docs/OuterShelljs.md) instance, `shelljs`.
 
 ```js
-audit.assert(function(shelljs) {
+audit.assert('should ...', function(shelljs) {
   var result = false;
   // ...
   return result;
 });
 
-audit.refute(function(shelljs) {
+audit.refute('should ...', function(shelljs) {
   var result = false;
   // ...
   return result;
