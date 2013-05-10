@@ -22,7 +22,11 @@ audit
 if (audit.pass()) {
   // Expectations met
 } else {
-  // Inspect audit.last()
+  var rule = audit.last();
+  console.log(
+    'failed because rule %s with args %s returned %s',
+    rule.name, JSON.stringify(rule.args), JSON.stringify(rule.res)
+  );
 }
 ```
 
