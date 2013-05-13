@@ -4,21 +4,21 @@ _Source: [lib/audit-shelljs/index.js](../lib/audit-shelljs/index.js)_
 
 <a name="tableofcontents"></a>
 
-- <a name="toc_exports"></a>[exports.AuditShelljs](#exportsauditshelljs)
-- [exports.create](#exportscreate)
-- [exports.extendAuditShelljs](#exportsextendauditshelljsext)
-- [exports.extendRules](#exportsextendrulesext)
+- <a name="toc_exportsauditshelljs"></a><a name="toc_exports"></a>[exports.AuditShelljs](#exportsauditshelljs)
+- <a name="toc_exportscreate"></a>[exports.create](#exportscreate)
+- <a name="toc_exportsextendauditshelljsext"></a>[exports.extendAuditShelljs](#exportsextendauditshelljsext)
+- <a name="toc_exportsextendrulesext"></a>[exports.extendRules](#exportsextendrulesext)
 - <a name="toc_auditshelljs"></a>[AuditShelljs](#auditshelljs)
-- <a name="toc_auditshelljsprototype"></a>[AuditShelljs.prototype.last](#auditshelljsprototypelast)
-- [AuditShelljs.prototype.pass](#auditshelljsprototypepass)
-- <a name="toc_rules"></a>[rules._](#rules_)
-- [rules.__](#rules__method)
-- [rules.assert](#rulesassertlabel-cb)
-- [rules.refute](#rulesrefutelabel-cb)
-- [rules.grep](#rulesgrep)
-- [rules.grepv](#rulesgrepv)
-- [rules.hasDir](#ruleshasdirdir)
-- [rules.hasFile](#ruleshasfilefile)
+- <a name="toc_auditshelljsprototypelast"></a><a name="toc_auditshelljsprototype"></a>[AuditShelljs.prototype.last](#auditshelljsprototypelast)
+- <a name="toc_auditshelljsprototypepass"></a>[AuditShelljs.prototype.pass](#auditshelljsprototypepass)
+- <a name="toc_rules_"></a><a name="toc_rules"></a>[rules._](#rules_)
+- <a name="toc_rules__method"></a>[rules.__](#rules__method)
+- <a name="toc_rulesassertlabel-cb"></a>[rules.assert](#rulesassertlabel-cb)
+- <a name="toc_rulesrefutelabel-cb"></a>[rules.refute](#rulesrefutelabel-cb)
+- <a name="toc_rulesgrep"></a>[rules.grep](#rulesgrep)
+- <a name="toc_rulesgrepv"></a>[rules.grepv](#rulesgrepv)
+- <a name="toc_ruleshasdirdir"></a>[rules.hasDir](#ruleshasdirdir)
+- <a name="toc_ruleshasfilefile"></a>[rules.hasFile](#ruleshasfilefile)
 
 <a name="exports"></a>
 
