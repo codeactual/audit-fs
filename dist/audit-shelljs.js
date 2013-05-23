@@ -132,7 +132,9 @@
         };
     });
     require.alias("visionmedia-configurable.js/index.js", "audit-shelljs/deps/configurable.js/index.js");
+    require.alias("visionmedia-configurable.js/index.js", "configurable.js/index.js");
     require.alias("codeactual-extend/index.js", "audit-shelljs/deps/extend/index.js");
+    require.alias("codeactual-extend/index.js", "extend/index.js");
     require.alias("audit-shelljs/lib/component/main.js", "audit-shelljs/index.js");
     if (typeof exports == "object") {
         module.exports = require("audit-shelljs");
@@ -141,6 +143,6 @@
             return require("audit-shelljs");
         });
     } else {
-        window["auditShelljs"] = require("audit-shelljs");
+        this["auditShelljs"] = require("audit-shelljs");
     }
 })();
