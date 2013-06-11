@@ -126,23 +126,23 @@
             return object;
         };
     });
-    require.register("audit-shelljs/lib/component/main.js", function(exports, require, module) {
+    require.register("audit-fs/lib/component/main.js", function(exports, require, module) {
         module.exports = {
             requireComponent: require
         };
     });
-    require.alias("visionmedia-configurable.js/index.js", "audit-shelljs/deps/configurable.js/index.js");
+    require.alias("visionmedia-configurable.js/index.js", "audit-fs/deps/configurable.js/index.js");
     require.alias("visionmedia-configurable.js/index.js", "configurable.js/index.js");
-    require.alias("codeactual-extend/index.js", "audit-shelljs/deps/extend/index.js");
+    require.alias("codeactual-extend/index.js", "audit-fs/deps/extend/index.js");
     require.alias("codeactual-extend/index.js", "extend/index.js");
-    require.alias("audit-shelljs/lib/component/main.js", "audit-shelljs/index.js");
+    require.alias("audit-fs/lib/component/main.js", "audit-fs/index.js");
     if (typeof exports == "object") {
-        module.exports = require("audit-shelljs");
+        module.exports = require("audit-fs");
     } else if (typeof define == "function" && define.amd) {
         define(function() {
-            return require("audit-shelljs");
+            return require("audit-fs");
         });
     } else {
-        this["auditShelljs"] = require("audit-shelljs");
+        this["auditFs"] = require("audit-fs");
     }
 })();

@@ -1,16 +1,16 @@
 Audit directory properties/content with ShellJS
 
-_Source: [lib/audit-shelljs/index.js](../lib/audit-shelljs/index.js)_
+_Source: [lib/audit-fs/index.js](../lib/audit-fs/index.js)_
 
 <a name="tableofcontents"></a>
 
-- <a name="toc_exportsauditshelljs"></a><a name="toc_exports"></a>[exports.AuditShelljs](#exportsauditshelljs)
+- <a name="toc_exportsauditfs"></a><a name="toc_exports"></a>[exports.AuditFs](#exportsauditfs)
 - <a name="toc_exportscreate"></a>[exports.create](#exportscreate)
-- <a name="toc_exportsextendauditshelljsext"></a>[exports.extendAuditShelljs](#exportsextendauditshelljsext)
+- <a name="toc_exportsextendauditfsext"></a>[exports.extendAuditFs](#exportsextendauditfsext)
 - <a name="toc_exportsextendrulesext"></a>[exports.extendRules](#exportsextendrulesext)
-- <a name="toc_auditshelljs"></a>[AuditShelljs](#auditshelljs)
-- <a name="toc_auditshelljsprototypelast"></a><a name="toc_auditshelljsprototype"></a>[AuditShelljs.prototype.last](#auditshelljsprototypelast)
-- <a name="toc_auditshelljsprototypepass"></a>[AuditShelljs.prototype.pass](#auditshelljsprototypepass)
+- <a name="toc_auditfs"></a>[AuditFs](#auditfs)
+- <a name="toc_auditfsprototypelast"></a><a name="toc_auditfsprototype"></a>[AuditFs.prototype.last](#auditfsprototypelast)
+- <a name="toc_auditfsprototypepass"></a>[AuditFs.prototype.pass](#auditfsprototypepass)
 - <a name="toc_rules_"></a><a name="toc_rules"></a>[rules._](#rules_)
 - <a name="toc_rules__method"></a>[rules.__](#rules__method)
 - <a name="toc_rulesassertlabel-cb"></a>[rules.assert](#rulesassertlabel-cb)
@@ -22,15 +22,15 @@ _Source: [lib/audit-shelljs/index.js](../lib/audit-shelljs/index.js)_
 
 <a name="exports"></a>
 
-# exports.AuditShelljs()
+# exports.AuditFs()
 
-> [AuditShelljs](#auditshelljs) constructor.
+> [AuditFs](#auditfs) constructor.
 
 <sub>Go: [TOC](#tableofcontents) | [exports](#toc_exports)</sub>
 
 # exports.create()
 
-> Create a new [AuditShelljs](#auditshelljs).
+> Create a new [AuditFs](#auditfs).
 
 **Return:**
 
@@ -38,9 +38,9 @@ _Source: [lib/audit-shelljs/index.js](../lib/audit-shelljs/index.js)_
 
 <sub>Go: [TOC](#tableofcontents) | [exports](#toc_exports)</sub>
 
-# exports.extendAuditShelljs(ext)
+# exports.extendAuditFs(ext)
 
-> Extend [AuditShelljs](#auditshelljs).prototype.
+> Extend [AuditFs](#auditfs).prototype.
 
 **Parameters:**
 
@@ -66,14 +66,14 @@ _Source: [lib/audit-shelljs/index.js](../lib/audit-shelljs/index.js)_
 
 <sub>Go: [TOC](#tableofcontents) | [exports](#toc_exports)</sub>
 
-# AuditShelljs()
+# AuditFs()
 
-> AuditShelljs constructor.
+> AuditFs constructor.
 
 **Usage:**
 
 ```js
-var dox = require('audit-shelljs').create();
+var dox = require('audit-fs').create();
 ```
 
 **Configuration:**
@@ -98,9 +98,9 @@ var dox = require('audit-shelljs').create();
 
 <sub>Go: [TOC](#tableofcontents)</sub>
 
-<a name="auditshelljsprototype"></a>
+<a name="auditfsprototype"></a>
 
-# AuditShelljs.prototype.last()
+# AuditFs.prototype.last()
 
 > Return the result of the last executed test.
 
@@ -108,9 +108,9 @@ var dox = require('audit-shelljs').create();
 
 `{mixed}` Result object, or undefined if none were executed.
 
-<sub>Go: [TOC](#tableofcontents) | [AuditShelljs.prototype](#toc_auditshelljsprototype)</sub>
+<sub>Go: [TOC](#tableofcontents) | [AuditFs.prototype](#toc_auditfsprototype)</sub>
 
-# AuditShelljs.prototype.pass()
+# AuditFs.prototype.pass()
 
 > Run queued tests and return the result. Stop at first failure.
 
@@ -118,7 +118,7 @@ var dox = require('audit-shelljs').create();
 
 `{boolean}` True if all tests passed.
 
-<sub>Go: [TOC](#tableofcontents) | [AuditShelljs.prototype](#toc_auditshelljsprototype)</sub>
+<sub>Go: [TOC](#tableofcontents) | [AuditFs.prototype](#toc_auditfsprototype)</sub>
 
 <a name="rules"></a>
 

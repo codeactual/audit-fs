@@ -1,1 +1,1 @@
-module.exports = require('./lib/audit-shelljs');
+module.exports = require('./lib/audit-fs');

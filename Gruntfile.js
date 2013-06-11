@@ -3,9 +3,9 @@ module.exports = function(grunt) {
 
   require('grunt-horde')
     .create(grunt)
-    .demand('initConfig.projName', 'audit-shelljs')
-    .demand('initConfig.instanceName', 'auditShelljs')
-    .demand('initConfig.klassName', 'AuditShelljs')
+    .demand('initConfig.projName', 'audit-fs')
+    .demand('initConfig.instanceName', 'auditFs')
+    .demand('initConfig.klassName', 'AuditFs')
     .loot('node-component-grunt')
     .attack();
 };

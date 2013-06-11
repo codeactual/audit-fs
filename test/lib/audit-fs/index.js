@@ -9,12 +9,12 @@ var should = chai.should();
 chai.Assertion.includeStack = true;
 chai.use(require('sinon-chai'));
 
-var auditShelljs = require('../../..');
-var AuditShelljs = auditShelljs.AuditShelljs;
+var auditFs = require('../../..');
+var AuditFs = auditFs.AuditFs;
 
 require('sinon-doublist')(sinon, 'mocha');
 
-describe('AuditShelljs', function() {
+describe('AuditFs', function() {
   'use strict';
 
   beforeEach(function() {
@@ -24,15 +24,15 @@ describe('AuditShelljs', function() {
     this.testRes = {iAmA: 'test result'};
     this.dir = 'dir';
     this.file = 'file.ext';
-    this.as = new auditShelljs.create();
+    this.as = new auditFs.create();
     this.resOK = {code: 0};
-    this.hasDirSpy = this.spy(auditShelljs.rules, 'hasDir');
-    this.hasFileStub = this.stub(auditShelljs.rules, 'hasFile');
+    this.hasDirSpy = this.spy(auditFs.rules, 'hasDir');
+    this.hasFileStub = this.stub(auditFs.rules, 'hasFile');
   });
 
   describe('constructor', function() {
     it('should use cwd as default target dir', function() {
-      this.as = new auditShelljs.create();
+      this.as = new auditFs.create();
       this.as.get('dir').should.equal(process.cwd());
     });
   });
@@ -40,7 +40,7 @@ describe('AuditShelljs', function() {
   describe('prototype', function() {
     it('should include generated rules', function() {
       var self = this;
-      Object.keys(auditShelljs.rules).forEach(function(name) {
+      Object.keys(auditFs.rules).forEach(function(name) {
         self.as[name].should.be.a('function');
       });
     });
@@ -50,7 +50,7 @@ describe('AuditShelljs', function() {
     it('should create a function that queues configured rule test', function() {
       var pushTestSpy = this.spy();
       var context = {tests: {push: pushTestSpy}};
-      var created = AuditShelljs.createQueuePush(this.ruleName, this.ruleFn);
+      var created = AuditFs.createQueuePush(this.ruleName, this.ruleFn);
       created.apply(context, this.ruleArgs).should.deep.equal(context);
       pushTestSpy.should.have.been.calledWithExactly({
         name: this.ruleName, cb: this.ruleFn, args: this.ruleArgs
@@ -67,7 +67,7 @@ describe('AuditShelljs', function() {
     });
 
     it('should pass-through all args', function() {
-      var _Stub = this.stub(auditShelljs.rules, '_');
+      var _Stub = this.stub(auditFs.rules, '_');
       this.as._('foo', 'bar', 'baz').pass();
       _Stub.should.have.been.calledWithExactly('foo', 'bar', 'baz');
     });
@@ -188,7 +188,7 @@ describe('AuditShelljs', function() {
 
         it('should include generated rules', function() {
           var self = this;
-          Object.keys(auditShelljs.rules).forEach(function(name) {
+          Object.keys(auditFs.rules).forEach(function(name) {
             if (name === 'assert' || name === 'refute') {
               should.not.exist(self.as.refute[name]);
             } else {
