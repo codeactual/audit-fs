@@ -330,14 +330,14 @@ auditFs.hasFile('rel/path/to/file');
 **Usage:**
 
 ```js
-auditFs.minSize({filename: 'rel/path/to/file', size: 400});
-auditFs.minSize({filename: 'rel/path/to/dir', size: 400});
+auditFs.minSize({name: 'rel/path/to/file', size: 400});
+auditFs.minSize({name: 'rel/path/to/dir', size: 400});
 ```
 
 **Parameters:**
 
 - `{object} config`
-- `{string} filename`
+- `{string} name`
 - `{number} size` Bytes
 
 **Return:**
@@ -353,14 +353,14 @@ auditFs.minSize({filename: 'rel/path/to/dir', size: 400});
 **Usage:**
 
 ```js
-auditFs.maxSize({filename: 'rel/path/to/file', size: 400});
-auditFs.maxSize({filename: 'rel/path/to/dir', size: 400});
+auditFs.maxSize({name: 'rel/path/to/file', size: 400});
+auditFs.maxSize({name: 'rel/path/to/dir', size: 400});
 ```
 
 **Parameters:**
 
 - `{object} config`
-- `{string} filename`
+- `{string} name`
 - `{number} size` Bytes
 
 **Return:**
@@ -376,13 +376,13 @@ auditFs.maxSize({filename: 'rel/path/to/dir', size: 400});
 **Usage:**
 
 ```js
-auditFs.minCount({filename: 'rel/path/to/dir', count: 3});
+auditFs.minCount({name: 'rel/path/to/dir', count: 3});
 ```
 
 **Parameters:**
 
 - `{object} config`
-- `{string} filename`
+- `{string} name`
 - `{number} size` Bytes
 
 **Return:**
@@ -398,13 +398,13 @@ auditFs.minCount({filename: 'rel/path/to/dir', count: 3});
 **Usage:**
 
 ```js
-auditFs.maxCount({filename: 'rel/path/to/dir', count: 3});
+auditFs.maxCount({name: 'rel/path/to/dir', count: 3});
 ```
 
 **Parameters:**
 
 - `{object} config`
-- `{string} filename`
+- `{string} name`
 - `{number} size` Bytes
 
 **Return:**
@@ -420,14 +420,14 @@ auditFs.maxCount({filename: 'rel/path/to/dir', count: 3});
 **Usage:**
 
 ```js
-auditFs.created({filename: 'rel/path/to/file', max: 3600});
-auditFs.created({filename: 'rel/path/to/dir', max: 3600});
+auditFs.created({name: 'rel/path/to/file', max: 3600});
+auditFs.created({name: 'rel/path/to/dir', max: 3600});
 ```
 
 **Parameters:**
 
 - `{object} config`
-- `{string} filename`
+- `{string} name`
 - `{number} max` Max age, in seconds, to be considered new
 
 **Return:**
@@ -443,14 +443,14 @@ auditFs.created({filename: 'rel/path/to/dir', max: 3600});
 **Usage:**
 
 ```js
-auditFs.modified({filename: 'rel/path/to/file', max: 3600});
-auditFs.modified({filename: 'rel/path/to/dir', max: 3600});
+auditFs.modified({name: 'rel/path/to/file', max: 3600});
+auditFs.modified({name: 'rel/path/to/dir', max: 3600});
 ```
 
 **Parameters:**
 
 - `{object} config`
-- `{string} filename`
+- `{string} name`
 - `{number} max` Max age, in seconds, to be considered new
 
 **Return:**

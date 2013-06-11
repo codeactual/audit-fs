@@ -31,6 +31,7 @@ describe('AuditFs', function() {
     this.hasDirSpy = this.spy(auditFs.rules, 'hasDir');
     this.hasFileStub = this.stub(auditFs.rules, 'hasFile');
     this.now = Date.now();
+    this.cwd = process.cwd();
   });
 
   describe('constructor', function() {
@@ -309,134 +310,134 @@ describe('AuditFs', function() {
 
     describe('#getFileSize', function() {
       it('should calculate file size', function() {
-        this.stubFile('/f').stat('size', 1234).make();
-        AuditFs.getFileSize('/f').should.equal(1234);
+        this.stubFile(this.cwd + '/f').stat('size', 1234).make();
+        AuditFs.getFileSize(this.afs.resolve('f')).should.equal(1234);
       });
 
       it('should calculate directory size recursively', function() {
-        this.stubFile('/d').readdir([
-          this.stubFile('/d/f0').stat('size', 1),
-          this.stubFile('/d/sub0').readdir([
-            this.stubFile('/d/sub0/f1').stat('size', 2),
-            this.stubFile('/d/sub0/f2').stat('size', 3),
-            this.stubFile('/d/sub0/sub1').readdir([
-              this.stubFile('/d/sub0/sub1/f3').stat('size', 4)
+        this.stubFile(this.cwd + '/d').readdir([
+          this.stubFile(this.cwd + '/d/f0').stat('size', 1),
+          this.stubFile(this.cwd + '/d/sub0').readdir([
+            this.stubFile(this.cwd + '/d/sub0/f1').stat('size', 2),
+            this.stubFile(this.cwd + '/d/sub0/f2').stat('size', 3),
+            this.stubFile(this.cwd + '/d/sub0/sub1').readdir([
+              this.stubFile(this.cwd + '/d/sub0/sub1/f3').stat('size', 4)
             ]).stat('size', 4096)
           ]).stat('size', 4096),
-          this.stubFile('/d/sub2').readdir([
-            this.stubFile('/d/sub2/f4').stat('size', 5)
+          this.stubFile(this.cwd + '/d/sub2').readdir([
+            this.stubFile(this.cwd + '/d/sub2/f4').stat('size', 5)
           ]).stat('size', 4096)
         ]).stat('size', 4096).make();
-        AuditFs.getFileSize('/d').should.equal(16399);
+        AuditFs.getFileSize(this.afs.resolve('d')).should.equal(16399);
       });
     });
 
     describe('#getFileCount', function() {
       it('should calculate directory file count non-recursively', function() {
-        this.stubFile('/d').readdir([
-          this.stubFile('/d/f0'),
-          this.stubFile('/d/sub0').readdir(['f3', 'f4', 'sub1']),
-          this.stubFile('/d/f1'),
-          this.stubFile('/d/f2')
+        this.stubFile(this.cwd + '/d').readdir([
+          this.stubFile(this.cwd + '/d/f0'),
+          this.stubFile(this.cwd + '/d/sub0').readdir(['f3', 'f4', 'sub1']),
+          this.stubFile(this.cwd + '/d/f1'),
+          this.stubFile(this.cwd + '/d/f2')
         ]).make();
-        AuditFs.getFileCount('/d').should.equal(3);
+        AuditFs.getFileCount(this.afs.resolve('d')).should.equal(3);
       });
     });
 
     describe('#minSize', function() {
       it('should fail if min unmet', function() {
-        this.stubFile('/f0').stat('size', 3).make();
-        rules.minSize({filename: '/f0', size: 4}).should.equal(false);
+        this.stubFile(this.cwd + '/f0').stat('size', 3).make();
+        rules.minSize.bind(this.afs)({name: 'f0', size: 4}).should.equal(false);
       });
 
       it('should pass if min is met exactly', function() {
-        this.stubFile('/f0').stat('size', 4).make();
-        rules.minSize({filename: '/f0', size: 4}).should.equal(true);
+        this.stubFile(this.cwd + '/f0').stat('size', 4).make();
+        rules.minSize.bind(this.afs)({name: 'f0', size: 4}).should.equal(true);
       });
 
       it('should pass if min is exceeded', function() {
-        this.stubFile('/f0').stat('size', 5).make();
-        rules.minSize({filename: '/f0', size: 4}).should.equal(true);
+        this.stubFile(this.cwd + '/f0').stat('size', 5).make();
+        rules.minSize.bind(this.afs)({name: 'f0', size: 4}).should.equal(true);
       });
     });
 
     describe('#maxSize', function() {
       it('should fail if max exceeded', function() {
-        this.stubFile('/f0').stat('size', 4).make();
-        rules.maxSize({filename: '/f0', size: 3}).should.equal(false);
+        this.stubFile(this.cwd + '/f0').stat('size', 4).make();
+        rules.maxSize.bind(this.afs)({name: 'f0', size: 3}).should.equal(false);
       });
 
       it('should pass if max is met exactly', function() {
-        this.stubFile('/f0').stat('size', 4).make();
-        rules.maxSize({filename: '/f0', size: 4}).should.equal(true);
+        this.stubFile(this.cwd + '/f0').stat('size', 4).make();
+        rules.maxSize.bind(this.afs)({name: 'f0', size: 4}).should.equal(true);
       });
 
       it('should pass if max is unmet', function() {
-        this.stubFile('/f0').stat('size', 3).make();
-        rules.maxSize({filename: '/f0', size: 4}).should.equal(true);
+        this.stubFile(this.cwd + '/f0').stat('size', 3).make();
+        rules.maxSize.bind(this.afs)({name: 'f0', size: 4}).should.equal(true);
       });
     });
 
     describe('#minCount', function() {
       beforeEach(function() {
-        this.stubFile('/f').readdir([
-          this.stubFile('/f/a'),
-          this.stubFile('/f/b'),
-          this.stubFile('/f/c')
+        this.stubFile(this.cwd + '/f').readdir([
+          this.stubFile(this.cwd + '/f/a'),
+          this.stubFile(this.cwd + '/f/b'),
+          this.stubFile(this.cwd + '/f/c')
         ]).make();
       });
 
       it('should pass if min is met exactly', function() {
-        rules.minCount({filename: '/f', count: 3}).should.equal(true);
+        rules.minCount.bind(this.afs)({name: 'f', count: 3}).should.equal(true);
       });
 
       it('should pass if min is exceeded', function() {
-        rules.minCount({filename: '/f', count: 2}).should.equal(true);
+        rules.minCount.bind(this.afs)({name: 'f', count: 2}).should.equal(true);
       });
     });
 
     describe('#maxCount', function() {
       beforeEach(function() {
-        this.stubFile('/f').readdir(['a', 'b', 'c']).make();
-        this.stubFile('/f/a').make();
-        this.stubFile('/f/b').make();
-        this.stubFile('/f/c').make();
+        this.stubFile(this.cwd + '/f').readdir(['a', 'b', 'c']).make();
+        this.stubFile(this.cwd + '/f/a').make();
+        this.stubFile(this.cwd + '/f/b').make();
+        this.stubFile(this.cwd + '/f/c').make();
       });
 
       it('should fail if max exceeded', function() {
-        rules.maxCount({filename: '/f', count: 2}).should.equal(false);
+        rules.maxCount.bind(this.afs)({name: 'f', count: 2}).should.equal(false);
       });
 
       it('should pass if max is met exactly', function() {
-        rules.maxCount({filename: '/f', count: 3}).should.equal(true);
+        rules.maxCount.bind(this.afs)({name: 'f', count: 3}).should.equal(true);
       });
 
       it('should pass if max is unmet', function() {
-        rules.maxCount({filename: '/f', count: 3}).should.equal(true);
+        rules.maxCount.bind(this.afs)({name: 'f', count: 3}).should.equal(true);
       });
     });
 
     describe('#created', function() {
       it('should fail if file was not created recently', function() {
-        this.stubFile('/f').stat('ctime', new Date(this.now - 10)).make();
-        rules.created({filename: '/f', max: 9}).should.equal(false);
+        this.stubFile(this.cwd + '/f').stat('ctime', new Date(this.now - 10)).make();
+        rules.created.bind(this.afs)({name: 'f', max: 9}).should.equal(false);
       });
 
       it('should pass if file was created recently', function() {
-        this.stubFile('/f').stat('ctime', new Date(this.now - 1)).make();
-        rules.created({filename: '/f', max: 9}).should.equal(true);
+        this.stubFile(this.cwd + '/f').stat('ctime', new Date(this.now - 1)).make();
+        rules.created.bind(this.afs)({name: 'f', max: 9}).should.equal(true);
       });
     });
 
     describe('#modified', function() {
       it('should fail if file was not updated recently', function() {
-        this.stubFile('/f').stat('mtime', new Date(this.now - 10)).make();
-        rules.modified({filename: '/f', max: 9}).should.equal(false);
+        this.stubFile(this.cwd + '/f').stat('mtime', new Date(this.now - 10)).make();
+        rules.modified.bind(this.afs)({name: 'f', max: 9}).should.equal(false);
       });
 
       it('should pass if file was updated recently', function() {
-        this.stubFile('/f').stat('mtime', new Date(this.now - 1)).make();
-        rules.modified({filename: '/f', max: 9}).should.equal(true);
+        this.stubFile(this.cwd + '/f').stat('mtime', new Date(this.now - 1)).make();
+        rules.modified.bind(this.afs)({name: 'f', max: 9}).should.equal(true);
       });
     });
   });
