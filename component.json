@@ -4,9 +4,12 @@
   "description": "Audit file/directory properties and content",
   "version": "0.2.0",
   "keywords": [
-    "shelljs",
-    "outer-shelljs",
-    "audit",
+    "filesystem",
+    "files",
+    "directories",
+    "stat",
+    "grep",
+    "expectation",
     "test"
   ],
   "dependencies": {

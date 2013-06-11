@@ -4,9 +4,12 @@
   "version": "0.2.0",
   "main": "index.js",
   "keywords": [
-    "shelljs",
-    "outer-shelljs",
-    "audit",
+    "filesystem",
+    "files",
+    "directories",
+    "stat",
+    "grep",
+    "expectation",
     "test"
   ],
   "contributors": [
