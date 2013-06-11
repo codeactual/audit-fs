@@ -39,7 +39,8 @@
     "sinon-chai": "~2.4.0",
     "sinon-doublist": "~0.4.1",
     "grunt-horde": "~0.3.0",
-    "node-component-grunt": "git://github.com/codeactual/node-component-grunt.git"
+    "node-component-grunt": "git://github.com/codeactual/node-component-grunt.git",
+    "sinon-doublist-fs": "~0.4.1"
   },
   "scripts": {
     "test": "grunt test"

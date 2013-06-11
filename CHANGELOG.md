@@ -1,5 +1,6 @@
 # 0.2.0
 
+- feat(rules): Add `exists`, `minSize`, `minCount`, `maxCount`, `created`, `modified`
 - chore(repo): Rename project to `audit-fs` from `audit-shelljs`
 
 # 0.1.3

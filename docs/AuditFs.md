@@ -17,8 +17,15 @@ _Source: [lib/audit-fs/index.js](../lib/audit-fs/index.js)_
 - <a name="toc_rulesrefutelabel-cb"></a>[rules.refute](#rulesrefutelabel-cb)
 - <a name="toc_rulesgrep"></a>[rules.grep](#rulesgrep)
 - <a name="toc_rulesgrepv"></a>[rules.grepv](#rulesgrepv)
+- <a name="toc_rulesexistsname"></a>[rules.exists](#rulesexistsname)
 - <a name="toc_ruleshasdirdir"></a>[rules.hasDir](#ruleshasdirdir)
 - <a name="toc_ruleshasfilefile"></a>[rules.hasFile](#ruleshasfilefile)
+- <a name="toc_rulesminsizeconfig"></a>[rules.minSize](#rulesminsizeconfig)
+- <a name="toc_rulesmaxsizeconfig"></a>[rules.maxSize](#rulesmaxsizeconfig)
+- <a name="toc_rulesmincountconfig"></a>[rules.minCount](#rulesmincountconfig)
+- <a name="toc_rulesmaxcountconfig"></a>[rules.maxCount](#rulesmaxcountconfig)
+- <a name="toc_rulescreatedconfig"></a>[rules.created](#rulescreatedconfig)
+- <a name="toc_rulesmodifiedconfig"></a>[rules.modified](#rulesmodifiedconfig)
 
 <a name="exports"></a>
 
@@ -212,6 +219,20 @@ Thin wrapper around `OuterShelljs#grep`.
 
 <sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
 
+# rules.exists(name)
+
+> Verify that a descendant file/dir exists.
+
+**Parameters:**
+
+- `{string} name`
+
+**Return:**
+
+`{boolean}`
+
+<sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
+
 # rules.hasDir(dir)
 
 > Verify that a sub-dir exists.
@@ -233,6 +254,102 @@ Thin wrapper around `OuterShelljs#grep`.
 **Parameters:**
 
 - `{string} file`
+
+**Return:**
+
+`{boolean}`
+
+<sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
+
+# rules.minSize(config)
+
+> Verify that a file/dir size is not below a minimum.
+
+**Parameters:**
+
+- `{object} config`
+  - {string} filename
+  - {number} size Bytes
+
+**Return:**
+
+`{boolean}`
+
+<sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
+
+# rules.maxSize(config)
+
+> Verify that a file/dir size is not above a maximum.
+
+**Parameters:**
+
+- `{object} config`
+  - {string} filename
+  - {number} size Bytes
+
+**Return:**
+
+`{boolean}`
+
+<sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
+
+# rules.minCount(config)
+
+> Verify that a dir has a minimum (non-recursive) file count.
+
+**Parameters:**
+
+- `{object} config`
+  - {string} filename
+  - {number} size Bytes
+
+**Return:**
+
+`{boolean}`
+
+<sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
+
+# rules.maxCount(config)
+
+> Verify that a dir has a maximum (non-recursive) file count.
+
+**Parameters:**
+
+- `{object} config`
+  - {string} filename
+  - {number} size Bytes
+
+**Return:**
+
+`{boolean}`
+
+<sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
+
+# rules.created(config)
+
+> Verify that file/dir was created in the last N seconds.
+
+**Parameters:**
+
+- `{object} config`
+  - {string} filename
+  - {number} max Max age, in seconds, to be considered new
+
+**Return:**
+
+`{boolean}`
+
+<sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
+
+# rules.modified(config)
+
+> Verify that file/dir was modified in the last N seconds.
+
+**Parameters:**
+
+- `{object} config`
+  - {string} filename
+  - {number} max Max age, in seconds, to be considered new
 
 **Return:**
 
