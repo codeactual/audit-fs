@@ -1,6 +1,6 @@
 {
   "name": "audit-fs",
-  "description": "Audit directory properties/content with ShellJS",
+  "description": "Audit file/directory properties and content",
   "version": "0.2.0",
   "main": "index.js",
   "keywords": [
