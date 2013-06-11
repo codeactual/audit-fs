@@ -3,7 +3,7 @@
 Audit file/directory properties and content
 
 - Declare expectations with chaining. Stop at first failure.
-- Partial expectation list: `exists`, `hasFile`, `hasDir`, `minSize`, `minCount`, `maxCount`, `created`, `modified`.
+- [Expectations](docs/AuditFs#rules): `exists`, `hasFile`, `hasDir`, `minSize`, `minCount`, `maxCount`, `created`, `modified`.
 - `refute` API for negating any expectation.
 - Call any `shelljs` method or use wrappers like `hasFile()`.
 

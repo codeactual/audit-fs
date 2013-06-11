@@ -80,13 +80,12 @@ _Source: [lib/audit-fs/index.js](../lib/audit-fs/index.js)_
 **Usage:**
 
 ```js
-var dox = require('audit-fs').create();
+var auditFs = require('audit-fs').create();
 ```
 
 **Configuration:**
 
-- `{string} [input]` Source file to read
-- `{string} [output]` Markdown file to write
+- `{string} [dir=cwd]` Parent directory to examine
 
 **Properties:**
 
@@ -133,6 +132,12 @@ var dox = require('audit-fs').create();
 
 > Truthy-test a custom ShellJS invocation.
 
+**Usage:**
+
+```js
+auditFs._('test', '-L', '/path/to/symlink');
+```
+
 **Return:**
 
 `{boolean}`
@@ -142,6 +147,12 @@ var dox = require('audit-fs').create();
 # rules.__(method)
 
 > Truthy-test a custom OuterShelljs invocation.
+
+**Usage:**
+
+```js
+auditFs.__('findByRegex', '/path/to/dir', /\.js$/);
+```
 
 **Parameters:**
 
@@ -156,6 +167,16 @@ var dox = require('audit-fs').create();
 # rules.assert(label, cb)
 
 > Truthy-test a custom function invocation.
+
+**Usage:**
+
+```js
+auditFs.assert('should ...', function(shelljs) {
+  var passed = false;
+  // ...
+  return passed;
+});
+```
 
 **Parameters:**
 
@@ -173,6 +194,16 @@ var dox = require('audit-fs').create();
 # rules.refute(label, cb)
 
 > Falsey-test a custom function invocation.
+
+**Usage:**
+
+```js
+auditFs.refute('should ...', function(shelljs) {
+  var passed = false;
+  // ...
+  return passed;
+});
+```
 
 **Parameters:**
 
@@ -193,6 +224,12 @@ var dox = require('audit-fs').create();
 
 Thin wrapper around `OuterShelljs#grep`.
 
+**Usage:**
+
+```js
+auditFs.grep('needle', '/path/to/haystack');
+```
+
 **Return:**
 
 `{boolean}`
@@ -205,9 +242,15 @@ Thin wrapper around `OuterShelljs#grep`.
 
 # rules.grepv()
 
-> Verify that a file has a line with the given string.
+> Verify that a file does not have a line with the given string.
 
-Thin wrapper around `OuterShelljs#grep`.
+Thin wrapper around `OuterShelljs#grepv`.
+
+**Usage:**
+
+```js
+auditFs.grepv('needle', '/path/to/haystack');
+```
 
 **Return:**
 
@@ -223,6 +266,13 @@ Thin wrapper around `OuterShelljs#grep`.
 
 > Verify that a descendant file/dir exists.
 
+**Usage:**
+
+```js
+auditFs.exists('rel/path/to/file');
+auditFs.exists('rel/path/to/dir');
+```
+
 **Parameters:**
 
 - `{string} name`
@@ -236,6 +286,12 @@ Thin wrapper around `OuterShelljs#grep`.
 # rules.hasDir(dir)
 
 > Verify that a sub-dir exists.
+
+**Usage:**
+
+```js
+auditFs.hasDir('rel/path/to/dir');
+```
 
 **Parameters:**
 
@@ -251,6 +307,12 @@ Thin wrapper around `OuterShelljs#grep`.
 
 > Verify that a descendant file exists.
 
+**Usage:**
+
+```js
+auditFs.hasFile('rel/path/to/file');
+```
+
 **Parameters:**
 
 - `{string} file`
@@ -265,11 +327,18 @@ Thin wrapper around `OuterShelljs#grep`.
 
 > Verify that a file/dir size is not below a minimum.
 
+**Usage:**
+
+```js
+auditFs.minSize({filename: 'rel/path/to/file', size: 400});
+auditFs.minSize({filename: 'rel/path/to/dir', size: 400});
+```
+
 **Parameters:**
 
 - `{object} config`
-  - {string} filename
-  - {number} size Bytes
+- `{string} filename`
+- `{number} size` Bytes
 
 **Return:**
 
@@ -281,11 +350,18 @@ Thin wrapper around `OuterShelljs#grep`.
 
 > Verify that a file/dir size is not above a maximum.
 
+**Usage:**
+
+```js
+auditFs.maxSize({filename: 'rel/path/to/file', size: 400});
+auditFs.maxSize({filename: 'rel/path/to/dir', size: 400});
+```
+
 **Parameters:**
 
 - `{object} config`
-  - {string} filename
-  - {number} size Bytes
+- `{string} filename`
+- `{number} size` Bytes
 
 **Return:**
 
@@ -297,11 +373,17 @@ Thin wrapper around `OuterShelljs#grep`.
 
 > Verify that a dir has a minimum (non-recursive) file count.
 
+**Usage:**
+
+```js
+auditFs.minCount({filename: 'rel/path/to/dir', count: 3});
+```
+
 **Parameters:**
 
 - `{object} config`
-  - {string} filename
-  - {number} size Bytes
+- `{string} filename`
+- `{number} size` Bytes
 
 **Return:**
 
@@ -313,11 +395,17 @@ Thin wrapper around `OuterShelljs#grep`.
 
 > Verify that a dir has a maximum (non-recursive) file count.
 
+**Usage:**
+
+```js
+auditFs.maxCount({filename: 'rel/path/to/dir', count: 3});
+```
+
 **Parameters:**
 
 - `{object} config`
-  - {string} filename
-  - {number} size Bytes
+- `{string} filename`
+- `{number} size` Bytes
 
 **Return:**
 
@@ -329,11 +417,18 @@ Thin wrapper around `OuterShelljs#grep`.
 
 > Verify that file/dir was created in the last N seconds.
 
+**Usage:**
+
+```js
+auditFs.created({filename: 'rel/path/to/file', max: 3600});
+auditFs.created({filename: 'rel/path/to/dir', max: 3600});
+```
+
 **Parameters:**
 
 - `{object} config`
-  - {string} filename
-  - {number} max Max age, in seconds, to be considered new
+- `{string} filename`
+- `{number} max` Max age, in seconds, to be considered new
 
 **Return:**
 
@@ -345,11 +440,18 @@ Thin wrapper around `OuterShelljs#grep`.
 
 > Verify that file/dir was modified in the last N seconds.
 
+**Usage:**
+
+```js
+auditFs.modified({filename: 'rel/path/to/file', max: 3600});
+auditFs.modified({filename: 'rel/path/to/dir', max: 3600});
+```
+
 **Parameters:**
 
 - `{object} config`
-  - {string} filename
-  - {number} max Max age, in seconds, to be considered new
+- `{string} filename`
+- `{number} max` Max age, in seconds, to be considered new
 
 **Return:**
 
