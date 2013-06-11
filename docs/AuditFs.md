@@ -1,4 +1,4 @@
-Audit directory properties/content with ShellJS
+Audit file/directory properties and content
 
 _Source: [lib/audit-fs/index.js](../lib/audit-fs/index.js)_
 

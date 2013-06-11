@@ -1,6 +1,6 @@
 # audit-fs
 
-Audit directory properties/content with [ShellJS](https://github.com/arturadib/shelljs).
+Audit file/directory properties and content
 
 * Declare expectations with chaining. Stop at first failure.
 * `refute` API for negating any expectation.
