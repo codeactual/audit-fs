@@ -2,7 +2,7 @@
   "name": "audit-fs",
   "repo": "codeactual/audit-fs",
   "description": "Audit directory properties/content with ShellJS",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "keywords": [
     "shelljs",
     "outer-shelljs",
