@@ -6,6 +6,7 @@ Audit file/directory properties and content
 - [Expectations](docs/AuditFs.md#rules): `exists`, `hasFile`, `hasDir`, `minSize`, `minCount`, `maxCount`, `created`, `modified`.
 - `refute` API for negating any expectation.
 - Call any `shelljs` method or use wrappers like `hasFile()`.
+- Available as a [grunt task](https://github.com/codeactual/grunt-audit-fs).
 
 [![Build Status](https://travis-ci.org/codeactual/audit-fs.png)](https://travis-ci.org/codeactual/audit-fs)
 
