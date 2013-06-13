@@ -20,12 +20,12 @@ _Source: [lib/audit-fs/index.js](../lib/audit-fs/index.js)_
 - <a name="toc_rulesexistsname"></a>[rules.exists](#rulesexistsname)
 - <a name="toc_ruleshasdirdir"></a>[rules.hasDir](#ruleshasdirdir)
 - <a name="toc_ruleshasfilefile"></a>[rules.hasFile](#ruleshasfilefile)
-- <a name="toc_rulesminsizeconfig"></a>[rules.minSize](#rulesminsizeconfig)
-- <a name="toc_rulesmaxsizeconfig"></a>[rules.maxSize](#rulesmaxsizeconfig)
-- <a name="toc_rulesmincountconfig"></a>[rules.minCount](#rulesmincountconfig)
-- <a name="toc_rulesmaxcountconfig"></a>[rules.maxCount](#rulesmaxcountconfig)
-- <a name="toc_rulescreatedconfig"></a>[rules.created](#rulescreatedconfig)
-- <a name="toc_rulesmodifiedconfig"></a>[rules.modified](#rulesmodifiedconfig)
+- <a name="toc_rulesminsizename-bytes"></a>[rules.minSize](#rulesminsizename-bytes)
+- <a name="toc_rulesmaxsizename-bytes"></a>[rules.maxSize](#rulesmaxsizename-bytes)
+- <a name="toc_rulesmincountname-count"></a>[rules.minCount](#rulesmincountname-count)
+- <a name="toc_rulesmaxcountname-count"></a>[rules.maxCount](#rulesmaxcountname-count)
+- <a name="toc_rulescreatedname-max"></a>[rules.created](#rulescreatedname-max)
+- <a name="toc_rulesmodifiedname-max"></a>[rules.modified](#rulesmodifiedname-max)
 
 <a name="exports"></a>
 
@@ -91,11 +91,11 @@ var auditFs = require('audit-fs').create();
 
 - `{object} shelljs` OuterShelljs instance
 - `{array} tests` One object per executed test
-  - `{string} name` Ex. 'hasFile'
+ @param {string} name Ex. 'hasFile'
   - `{function} cb` Name-specific test function from `createTester()`
   - `{mixed} res` Ex. ShellJS `test()` boolean result
 - `{array} result` One object per executed test
-  - `{string} name` Ex. 'hasFile'
+ @param {string} name Ex. 'hasFile'
   - `{array} args` Ex. arguments passed to `hasFile()`
   - `{mixed} res` Ex. ShellJS `test()` boolean result
 - `{boolean} match` True if 0 executed tests failed
@@ -323,22 +323,21 @@ auditFs.hasFile('rel/path/to/file');
 
 <sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
 
-# rules.minSize(config)
+# rules.minSize(name, bytes)
 
 > Verify that a file/dir size is not below a minimum.
 
 **Usage:**
 
 ```js
-auditFs.minSize({name: 'rel/path/to/file', size: 400});
-auditFs.minSize({name: 'rel/path/to/dir', size: 400});
+auditFs.minSize('rel/path/to/file', 400);
+auditFs.minSize('rel/path/to/dir', 400);
 ```
 
 **Parameters:**
 
-- `{object} config`
 - `{string} name`
-- `{number} size` Bytes
+- `{number} bytes`
 
 **Return:**
 
@@ -346,22 +345,21 @@ auditFs.minSize({name: 'rel/path/to/dir', size: 400});
 
 <sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
 
-# rules.maxSize(config)
+# rules.maxSize(name, bytes)
 
 > Verify that a file/dir size is not above a maximum.
 
 **Usage:**
 
 ```js
-auditFs.maxSize({name: 'rel/path/to/file', size: 400});
-auditFs.maxSize({name: 'rel/path/to/dir', size: 400});
+auditFs.maxSize('rel/path/to/file', 400);
+auditFs.maxSize('rel/path/to/dir', 400);
 ```
 
 **Parameters:**
 
-- `{object} config`
 - `{string} name`
-- `{number} size` Bytes
+- `{number} bytes`
 
 **Return:**
 
@@ -369,21 +367,20 @@ auditFs.maxSize({name: 'rel/path/to/dir', size: 400});
 
 <sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
 
-# rules.minCount(config)
+# rules.minCount(name, count)
 
 > Verify that a dir has a minimum (non-recursive) file count.
 
 **Usage:**
 
 ```js
-auditFs.minCount({name: 'rel/path/to/dir', count: 3});
+auditFs.minCount('rel/path/to/dir', 3);
 ```
 
 **Parameters:**
 
-- `{object} config`
 - `{string} name`
-- `{number} size` Bytes
+- `{number} count`
 
 **Return:**
 
@@ -391,21 +388,20 @@ auditFs.minCount({name: 'rel/path/to/dir', count: 3});
 
 <sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
 
-# rules.maxCount(config)
+# rules.maxCount(name, count)
 
 > Verify that a dir has a maximum (non-recursive) file count.
 
 **Usage:**
 
 ```js
-auditFs.maxCount({name: 'rel/path/to/dir', count: 3});
+auditFs.maxCount('rel/path/to/dir', 3);
 ```
 
 **Parameters:**
 
-- `{object} config`
 - `{string} name`
-- `{number} size` Bytes
+- `{number} count`
 
 **Return:**
 
@@ -413,20 +409,19 @@ auditFs.maxCount({name: 'rel/path/to/dir', count: 3});
 
 <sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
 
-# rules.created(config)
+# rules.created(name, max)
 
 > Verify that file/dir was created in the last N seconds.
 
 **Usage:**
 
 ```js
-auditFs.created({name: 'rel/path/to/file', max: 3600});
-auditFs.created({name: 'rel/path/to/dir', max: 3600});
+auditFs.created('rel/path/to/file', 3600);
+auditFs.created('rel/path/to/dir', 3600);
 ```
 
 **Parameters:**
 
-- `{object} config`
 - `{string} name`
 - `{number} max` Max age, in seconds, to be considered new
 
@@ -436,20 +431,19 @@ auditFs.created({name: 'rel/path/to/dir', max: 3600});
 
 <sub>Go: [TOC](#tableofcontents) | [rules](#toc_rules)</sub>
 
-# rules.modified(config)
+# rules.modified(name, max)
 
 > Verify that file/dir was modified in the last N seconds.
 
 **Usage:**
 
 ```js
-auditFs.modified({name: 'rel/path/to/file', max: 3600});
-auditFs.modified({name: 'rel/path/to/dir', max: 3600});
+auditFs.modified('rel/path/to/file', 3600);
+auditFs.modified('rel/path/to/dir', 3600);
 ```
 
 **Parameters:**
 
-- `{object} config`
 - `{string} name`
 - `{number} max` Max age, in seconds, to be considered new
 

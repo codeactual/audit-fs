@@ -1,3 +1,7 @@
+# 0.3.0
+
+- fix(rules): Remove config object argument from rules added in `0.3.0` for consistency with pre-`0.3.0`. Replace with explicit argument list.
+
 # 0.2.0
 
 - feat(rules): Add `exists`, `minSize`, `minCount`, `maxCount`, `created`, `modified`

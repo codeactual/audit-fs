@@ -347,34 +347,34 @@ describe('AuditFs', function() {
     describe('#minSize', function() {
       it('should fail if min unmet', function() {
         this.stubFile(this.cwd + '/f0').stat('size', 3).make();
-        rules.minSize.bind(this.afs)({name: 'f0', size: 4}).should.equal(false);
+        rules.minSize.bind(this.afs)('f0', 4).should.equal(false);
       });
 
       it('should pass if min is met exactly', function() {
         this.stubFile(this.cwd + '/f0').stat('size', 4).make();
-        rules.minSize.bind(this.afs)({name: 'f0', size: 4}).should.equal(true);
+        rules.minSize.bind(this.afs)('f0', 4).should.equal(true);
       });
 
       it('should pass if min is exceeded', function() {
         this.stubFile(this.cwd + '/f0').stat('size', 5).make();
-        rules.minSize.bind(this.afs)({name: 'f0', size: 4}).should.equal(true);
+        rules.minSize.bind(this.afs)('f0', 4).should.equal(true);
       });
     });
 
     describe('#maxSize', function() {
       it('should fail if max exceeded', function() {
         this.stubFile(this.cwd + '/f0').stat('size', 4).make();
-        rules.maxSize.bind(this.afs)({name: 'f0', size: 3}).should.equal(false);
+        rules.maxSize.bind(this.afs)('f0', 3).should.equal(false);
       });
 
       it('should pass if max is met exactly', function() {
         this.stubFile(this.cwd + '/f0').stat('size', 4).make();
-        rules.maxSize.bind(this.afs)({name: 'f0', size: 4}).should.equal(true);
+        rules.maxSize.bind(this.afs)('f0', 4).should.equal(true);
       });
 
       it('should pass if max is unmet', function() {
         this.stubFile(this.cwd + '/f0').stat('size', 3).make();
-        rules.maxSize.bind(this.afs)({name: 'f0', size: 4}).should.equal(true);
+        rules.maxSize.bind(this.afs)('f0', 4).should.equal(true);
       });
     });
 
@@ -388,11 +388,11 @@ describe('AuditFs', function() {
       });
 
       it('should pass if min is met exactly', function() {
-        rules.minCount.bind(this.afs)({name: 'f', count: 3}).should.equal(true);
+        rules.minCount.bind(this.afs)('f', 3).should.equal(true);
       });
 
       it('should pass if min is exceeded', function() {
-        rules.minCount.bind(this.afs)({name: 'f', count: 2}).should.equal(true);
+        rules.minCount.bind(this.afs)('f', 2).should.equal(true);
       });
     });
 
@@ -405,39 +405,39 @@ describe('AuditFs', function() {
       });
 
       it('should fail if max exceeded', function() {
-        rules.maxCount.bind(this.afs)({name: 'f', count: 2}).should.equal(false);
+        rules.maxCount.bind(this.afs)('f', 2).should.equal(false);
       });
 
       it('should pass if max is met exactly', function() {
-        rules.maxCount.bind(this.afs)({name: 'f', count: 3}).should.equal(true);
+        rules.maxCount.bind(this.afs)('f', 3).should.equal(true);
       });
 
       it('should pass if max is unmet', function() {
-        rules.maxCount.bind(this.afs)({name: 'f', count: 3}).should.equal(true);
+        rules.maxCount.bind(this.afs)('f', 3).should.equal(true);
       });
     });
 
     describe('#created', function() {
       it('should fail if file was not created recently', function() {
         this.stubFile(this.cwd + '/f').stat('ctime', new Date(this.now - 10)).make();
-        rules.created.bind(this.afs)({name: 'f', max: 9}).should.equal(false);
+        rules.created.bind(this.afs)('f', 9).should.equal(false);
       });
 
       it('should pass if file was created recently', function() {
         this.stubFile(this.cwd + '/f').stat('ctime', new Date(this.now - 1)).make();
-        rules.created.bind(this.afs)({name: 'f', max: 9}).should.equal(true);
+        rules.created.bind(this.afs)('f', 9).should.equal(true);
       });
     });
 
     describe('#modified', function() {
       it('should fail if file was not updated recently', function() {
         this.stubFile(this.cwd + '/f').stat('mtime', new Date(this.now - 10)).make();
-        rules.modified.bind(this.afs)({name: 'f', max: 9}).should.equal(false);
+        rules.modified.bind(this.afs)('f', 9).should.equal(false);
       });
 
       it('should pass if file was updated recently', function() {
         this.stubFile(this.cwd + '/f').stat('mtime', new Date(this.now - 1)).make();
-        rules.modified.bind(this.afs)({name: 'f', max: 9}).should.equal(true);
+        rules.modified.bind(this.afs)('f', 9).should.equal(true);
       });
     });
   });
