@@ -51,5 +51,6 @@
   "gitemplate": {
     "originSha": "c0599928cc",
     "originUrl": "/var/dev/gitemplate-node-lib/.git"
-  }
+  },
+  "author": "David Smith <codeactual@gmail.com>"
 }
